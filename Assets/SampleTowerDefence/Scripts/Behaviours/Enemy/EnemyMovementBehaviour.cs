@@ -22,6 +22,16 @@ namespace SampleTowerDefence.Scripts.Behaviours.Enemy
                 MoveToTarget();
         }
 
+        public void StartMovement()
+        {
+            canMove = true;
+        }
+
+        public void StopMovement()
+        {
+            canMove = false;
+        }
+
         private void MoveToTarget()
         {
             agent.Move(GetDirectionToMove());

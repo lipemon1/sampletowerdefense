@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4acd487012ef7245b572aaf93d1d35a, type: 3}
-  m_Name: Normal Enemy
+  m_Script: {fileID: 11500000, guid: 766f84d97fac77d47a75544de14dfbd0, type: 3}
+  m_Name: Wave 4
   m_EditorClassIdentifier: 
-  enemyData:
-    life: 100
-    speed: 3.5
-    material: {fileID: 2100000, guid: 51451a6d8a3b2c14aa1055efd458fb12, type: 2}
+  waveData:
+    enemies: 01000000000000000000000001000000000000000000000001000000000000000000000001000000
