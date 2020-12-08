@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using SampleTowerDefence.Scripts.Controller.Enemy;
+using SampleTowerDefence.Scripts.Controller.Pool;
 using SampleTowerDefence.Scripts.Scriptables;
 using UnityEngine;
 
@@ -47,7 +48,7 @@ namespace SampleTowerDefence.Scripts.Controller.Wave
             {
                 yield return _spawnDelay;
                 
-                var enemy = EnemyPoolController.Instance.GetAvailableEnemy();
+                var enemy = PoolController.Instance.GetAvailableEnemy();
                 
                 enemy.transform.position = spawnTransform.position;
                 enemy.SpawnEnemy(GetEnemyData(enemiesTypesToSpawn.PopAt(0)));

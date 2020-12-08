@@ -1,12 +1,12 @@
-﻿using SampleTowerDefence.Scripts.Controller.Core;
+﻿using SampleTowerDefence.Scripts.Behaviours.View;
+using SampleTowerDefence.Scripts.Controller.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace SampleTowerDefence.Scripts.View
 {
-    public class WaveView : MonoBehaviour
+    public class WaveView : ViewBehaviour
     {
-        [SerializeField] private GameObject viewObject;
         [SerializeField] private Button nextWaveButton;
         
         private void Awake()
@@ -14,19 +14,9 @@ namespace SampleTowerDefence.Scripts.View
             nextWaveButton.onClick.AddListener(WaveButtonClicked);
         }
         
-        public void OpenView()
-        {
-            viewObject.gameObject.SetActive(true);
-        }
-
-        private void CloseView()
-        {
-            viewObject.gameObject.SetActive(false);
-        }
-        
         private void WaveButtonClicked()
         {
-            viewObject.SetActive(false);
+            CloseView();
             LoopController.Instance.StartNextWave();
         }
     }

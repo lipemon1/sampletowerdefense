@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using SampleTowerDefence.Scripts.Behaviours.Construction;
+using SampleTowerDefence.Scripts.Controller.View;
 using SampleTowerDefence.Scripts.Controller.Wave;
 using SampleTowerDefence.Scripts.Scriptables;
 using SampleTowerDefence.Scripts.View;
@@ -13,7 +15,6 @@ namespace SampleTowerDefence.Scripts.Controller.Core
         [SerializeField] private List<WaveScriptableObject> waves = new List<WaveScriptableObject>();
         [SerializeField] private Model.Wave currentWave;
         [SerializeField] private int currentWaveIndex;
-        private bool _gameStarted;
         
         [Header("Enemies Counter")]
         [SerializeField] private int expectedWaveEnemies;
@@ -25,8 +26,7 @@ namespace SampleTowerDefence.Scripts.Controller.Core
         
         [Header("References")]
         [SerializeField] private WaveController waveController;
-        [SerializeField] private PlayView playView;
-        [SerializeField] private WaveView waveView;
+        [SerializeField] private ConstructorBehaviour constructorBehaviour;
         
         private void Awake()
         {
@@ -48,6 +48,7 @@ namespace SampleTowerDefence.Scripts.Controller.Core
 
         public void StartNextWave()
         {
+            ViewController.Instance.OpenView(ViewController.ViewType.GameView);
             currentWave = GetNextWave();
             
             expectedWaveEnemies = currentWave.enemies.Count;
@@ -66,17 +67,19 @@ namespace SampleTowerDefence.Scripts.Controller.Core
 
         private void EndGame()
         {
-            playView.OpenView();
+            ViewController.Instance.OpenView(ViewController.ViewType.PlayView);
         }
 
         private void EndWave()
         {
+            constructorBehaviour.DisableConstruction();
+            
             currentWavesDone++;
             
             if(currentWavesDone == expectedWaves)
                 EndGame();
             else
-                waveView.OpenView();
+                ViewController.Instance.OpenView(ViewController.ViewType.WaveView);
         }
 
         private Model.Wave GetNextWave()

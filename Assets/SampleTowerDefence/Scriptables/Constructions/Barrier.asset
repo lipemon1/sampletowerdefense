@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4acd487012ef7245b572aaf93d1d35a, type: 3}
-  m_Name: Strong Enemy
+  m_Script: {fileID: 11500000, guid: b4f9566c4a83e8e4b9fc97efb1e587f8, type: 3}
+  m_Name: Barrier
   m_EditorClassIdentifier: 
-  enemyData:
-    life: 120
-    speed: 5
-    material: {fileID: 2100000, guid: f70c542d9d893d34fb2ed475863ab34e, type: 2}
+  constructionData:
+    material: {fileID: 2100000, guid: 42041a6616188e849a4136ec0955e36b, type: 2}
+    structure: 0
