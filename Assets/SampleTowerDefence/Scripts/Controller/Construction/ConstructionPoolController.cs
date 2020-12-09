@@ -12,5 +12,11 @@ namespace SampleTowerDefence.Scripts.Controller.Construction
         {
             return constructionsAvailable?.Count > 0 ? constructionsAvailable.PopAt(0) : null;
         }
+        
+        public void ReturnConstructionToPool(PrepareConstructionBehaviour constructionBehaviour)
+        {
+            constructionBehaviour.gameObject.SetActive(false);
+            constructionsAvailable.Add(constructionBehaviour);
+        }
     }
 }

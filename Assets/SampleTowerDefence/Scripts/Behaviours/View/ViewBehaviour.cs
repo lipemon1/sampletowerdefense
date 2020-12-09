@@ -14,6 +14,13 @@ namespace SampleTowerDefence.Scripts.Behaviours.View
             viewObject.SetActive(true);
         }
 
+        public virtual void OpenView(Vector3 posToOpen)
+        {
+            posToOpen.y += 2.5f;
+            viewObject.transform.position = posToOpen;
+            viewObject.SetActive(true);
+        }
+
         public virtual void CloseView()
         {
             viewObject.SetActive(false);

@@ -6,29 +6,28 @@ using UnityEngine.UI;
 
 namespace SampleTowerDefence.Scripts.View
 {
-    public class ConfirmDialogView : ViewBehaviour
+    public class DeleteDialogView : ViewBehaviour
     {
-        [SerializeField] private Button cancelButton;
-        [SerializeField] private Button confirmButton;
+        [SerializeField] private Button cancelDeleteButton;
+        [SerializeField] private Button confirmDeleteButton;
 
         [SerializeField] private ConstructorBehaviour constructorBehaviour;
 
         private void Awake()
         {
-            cancelButton.onClick.AddListener(OnCancelButtonClicked);
-            confirmButton.onClick.AddListener(OnConfirmButtonClicked);
+            cancelDeleteButton.onClick.AddListener(OnCancelDeleteButtonClicked);
+            confirmDeleteButton.onClick.AddListener(OnConfirmDeleteButtonClicked);
         }
 
-        private void OnCancelButtonClicked()
+        private void OnCancelDeleteButtonClicked()
         {
-            constructorBehaviour.CancelPlacementConstruction();
             constructorBehaviour.SetConfirming(false);
             CloseView();
         }
 
-        private void OnConfirmButtonClicked()
+        private void OnConfirmDeleteButtonClicked()
         {
-            constructorBehaviour.PlaceConstruction();
+            OverConstructionDetection.Instance.DeleteConstruction();
             constructorBehaviour.SetConfirming(false);
             CloseView();
         }

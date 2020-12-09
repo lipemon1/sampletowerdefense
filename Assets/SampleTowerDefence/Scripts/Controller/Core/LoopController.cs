@@ -48,7 +48,6 @@ namespace SampleTowerDefence.Scripts.Controller.Core
 
         public void StartNextWave()
         {
-            ViewController.Instance.OpenView(ViewController.ViewType.GameView);
             currentWave = GetNextWave();
             
             expectedWaveEnemies = currentWave.enemies.Count;

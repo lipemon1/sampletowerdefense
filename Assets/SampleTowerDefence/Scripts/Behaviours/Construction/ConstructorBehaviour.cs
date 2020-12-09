@@ -1,6 +1,7 @@
 ﻿using System;
 using SampleTowerDefence.Scripts.Controller.Construction;
 using SampleTowerDefence.Scripts.Controller.Pool;
+using SampleTowerDefence.Scripts.Controller.View;
 using SampleTowerDefence.Scripts.Scriptables;
 using SampleTowerDefence.Scripts.View;
 using UnityEngine;
@@ -34,8 +35,6 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction
         [Header("Other References")]
         [SerializeField] private ConstructionScriptableObject barrierData;
         [SerializeField] private ConstructionScriptableObject towerData;
-        [SerializeField] private ConfirmDialogView confirmDialogView;
-        [SerializeField] private GameView gameView;
 
         // Update is called once per frame
         private void Update()
@@ -45,14 +44,14 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction
 
             if (enableConstruction && canPlace && Input.GetMouseButtonUp(0) && !confirmingView)
             {
-                confirmDialogView.OpenView(placeholderTransform.position);
-                gameView.CloseView();
+                SetConfirming(true);
+                ViewController.Instance.OpenView(ViewController.ViewType.ConfirmDialogView, placeholderTransform.position);
             }
         }
 
         public void EnableConstruction(ConstructionMode mode)
         {
-            gameView.CloseView();
+            ViewController.Instance.CloseView(ViewController.ViewType.GameView);
             
             enableConstruction = true;
 

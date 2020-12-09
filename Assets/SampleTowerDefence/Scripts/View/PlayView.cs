@@ -1,7 +1,6 @@
 ﻿using SampleTowerDefence.Scripts.Behaviours.View;
 using SampleTowerDefence.Scripts.Controller.Core;
-using SampleTowerDefence.Scripts.Controller.Wave;
-using SampleTowerDefence.Scripts.Model;
+using SampleTowerDefence.Scripts.Controller.View;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +17,7 @@ namespace SampleTowerDefence.Scripts.View
 
         private void PlayButtonClicked()
         {
-            CloseView();
+            ViewController.Instance.OpenView(ViewController.ViewType.GameView);
             
             LoopController.Instance.StartGame();
         }

@@ -42,6 +42,11 @@ namespace SampleTowerDefence.Scripts.Controller.Pool
             return constructionPoolController.GetAvailableConstruction();
         }
 
+        public void ReturnConstructionToPool(PrepareConstructionBehaviour construction)
+        {
+            constructionPoolController.ReturnConstructionToPool(construction);
+        }
+
         #endregion
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using SampleTowerDefence.Scripts.Behaviours.View;
-using SampleTowerDefence.Scripts.Model;
 using UnityEngine;
 
 namespace SampleTowerDefence.Scripts.Controller.View
@@ -14,11 +13,21 @@ namespace SampleTowerDefence.Scripts.Controller.View
             Undefined,
             PlayView,
             GameView,
-            WaveView
+            WaveView,
+            ConfirmDialogView,
+            DeleteDialogView
         }
         
         public static ViewController Instance { get; set; }
 
+        [Header("Start")]
+        [SerializeField] private ViewType startView;
+        
+        [Header("Debug Views")]
+        [SerializeField] private ViewType curView;
+        [SerializeField] private ViewType lastView;
+        
+        [Header("Views To Handle")]
         [SerializeField] private List<ViewBehaviour> views = new List<ViewBehaviour>();
         
         private void Awake()
@@ -27,17 +36,39 @@ namespace SampleTowerDefence.Scripts.Controller.View
                 Instance = this;
             else
                 Destroy(this);
+            
+            OpenView(startView);
         }
 
-        public void OpenView(ViewType viewTypeWanted)
+        public void OpenView(ViewType viewType)
         {
-            if(viewTypeWanted == ViewType.Undefined)
+            PrepareOpenView(viewType);
+            views.FirstOrDefault(v => v.GetViewType() == viewType)?.OpenView();
+        }
+        
+        public void OpenView(ViewType viewType, Vector3 posToOpen)
+        {
+            PrepareOpenView(viewType);
+            views.FirstOrDefault(v => v.GetViewType() == viewType)?.OpenView(posToOpen);
+        }
+
+        private void PrepareOpenView(ViewType viewType)
+        {
+            lastView = curView;
+            curView = viewType;
+            
+            //Checking for not configured view
+            if(viewType == ViewType.Undefined)
                 Debug.LogError("View not defined");
-            
+
+            //Closing every other view
             foreach (var view in views)
-                view.CloseView();
-            
-            views.FirstOrDefault(v => v.GetViewType() == viewTypeWanted)?.OpenView();
+                if (view.GetViewType() != viewType) view.CloseView();
+        }
+
+        public void CloseView(ViewType viewType)
+        {
+            views?.FirstOrDefault(v => v.GetViewType() == viewType)?.CloseView();
         }
     }
 }
