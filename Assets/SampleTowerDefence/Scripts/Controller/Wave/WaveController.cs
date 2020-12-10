@@ -1,63 +1,89 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using SampleTowerDefence.Scripts.Behaviours.Enemy;
 using SampleTowerDefence.Scripts.Controller.Enemy;
 using SampleTowerDefence.Scripts.Controller.Pool;
 using SampleTowerDefence.Scripts.Scriptables;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace SampleTowerDefence.Scripts.Controller.Wave
 {
     public class WaveController : MonoBehaviour
     {
-        [SerializeField] private List<Model.Wave.EnemyType> enemiesTypesToSpawn;
+        [Header("Configuration")]
         [SerializeField] private float delayBetweenEnemies;
-        [SerializeField] private bool waveSpawning;
+        [SerializeField] private float delayBetweenSameSpawn;
+        [SerializeField] private int maxEnemiesPerSpawn;
 
+        [Header("Scriptables References")]
         [SerializeField] private EnemyScriptableObject normalEnemyData;
         [SerializeField] private EnemyScriptableObject strongEnemyData;
-
+        
+        [Header("Data for Running Wave")]
+        [HideInInspector] private List<Model.Wave.EnemyType> _enemiesTypesToSpawn;
+        [HideInInspector] private bool _waveSpawning;
+        
+        //waitforseconds to be used on wave spawning
         private WaitForSeconds _spawnDelay;
+        private WaitForSeconds _delayOnSameSpawn;
 
         private void Awake()
         {
             _spawnDelay = new WaitForSeconds(delayBetweenEnemies);
+            _delayOnSameSpawn = new WaitForSeconds(delayBetweenSameSpawn);
         }
 
         [ContextMenu("Start Wave Spawn")]
         public void StartWave(Model.Wave wave)
         {
-            enemiesTypesToSpawn = new List<Model.Wave.EnemyType>();
-            enemiesTypesToSpawn.AddRange(wave.enemies);
+            _enemiesTypesToSpawn = new List<Model.Wave.EnemyType>();
+            _enemiesTypesToSpawn.AddRange(wave.enemies);
             
-            waveSpawning = true;
+            _waveSpawning = true;
             StartCoroutine(SpawnWave(wave));
         }
 
         [ContextMenu("Stop Wave Spawn")]
         public void StopWave()
         {
-            waveSpawning = false;
-            Debug.Log("Finish Wave Spawn");
+            _waveSpawning = false;
         }
 
         private IEnumerator SpawnWave(Model.Wave wave)
         {
-            while (waveSpawning && enemiesTypesToSpawn.Count > 0)
+            while (_waveSpawning && _enemiesTypesToSpawn.Count > 0)
             {
                 yield return _spawnDelay;
-                
-                var enemy = PoolController.Instance.GetAvailableEnemy();
-                
-                enemy.transform.position = wave.startPos;
-                enemy.SpawnEnemy(GetEnemyData(enemiesTypesToSpawn.PopAt(0)));
 
-                if (enemiesTypesToSpawn.Count <= 0)
+                var enemiesAmount = AmountOfEnenmiesToSpawn();
+
+                for (int i = 0; i < enemiesAmount; i++)
+                {
+                    var newEnemy = PoolController.Instance.GetAvailableEnemy();
+                    newEnemy.transform.position = wave.startPos;
+                    newEnemy.SpawnEnemy(GetEnemyData(_enemiesTypesToSpawn.PopAt(0)));
+
+                    yield return _delayOnSameSpawn;
+                }
+
+                if (_enemiesTypesToSpawn.Count <= 0)
                 {
                     StopWave();
                     yield return null;
                 }   
             }
+        }
+
+        private int AmountOfEnenmiesToSpawn()
+        {
+            var maxEnemyToSpawn = maxEnemiesPerSpawn;
+            
+            if (maxEnemiesPerSpawn > _enemiesTypesToSpawn.Count)
+                maxEnemyToSpawn = _enemiesTypesToSpawn.Count;
+            
+            return Random.Range(1, maxEnemyToSpawn);
         }
 
         private Model.Enemy GetEnemyData(Model.Wave.EnemyType enemyType)

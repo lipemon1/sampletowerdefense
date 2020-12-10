@@ -3418,10 +3418,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6dfb92934cc55a4d883e06800d5c87d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnTransform: {fileID: 2116308738}
   enemiesTypesToSpawn: 
-  delayBetweenEnemies: 1.5
-  waveSpawning: 0
+  delayBetweenEnemies: 3
+  delayBetweenSameSpawn: 1.25
+  maxEnemiesPerSpawn: 3
   normalEnemyData: {fileID: 11400000, guid: 33259cdd70516da4aa434348b2cec48b, type: 2}
   strongEnemyData: {fileID: 11400000, guid: f4375db7abe68f34f9ef0bb2abec271c, type: 2}
 --- !u!114 &695116576
@@ -3482,9 +3482,7 @@ MonoBehaviour:
   currentWaveEnemiesDone: 0
   expectedWaves: 0
   currentWavesDone: 0
-  waveController: {fileID: 695116575}
   constructorBehaviour: {fileID: 1863462822}
-  startPositionSetter: {fileID: 695116576}
 --- !u!1001 &696309668
 PrefabInstance:
   m_ObjectHideFlags: 0
