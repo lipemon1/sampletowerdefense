@@ -16,9 +16,6 @@ namespace SampleTowerDefence.Scripts.Controller.Pool
 
         protected void ReturnObjectToPool(T objectToReturn)
         {
-            var go = objectToReturn as GameObject;
-            if (go != null) go.SetActive(false);
-
             objectsAvailable.Add(objectToReturn);
         }
     }

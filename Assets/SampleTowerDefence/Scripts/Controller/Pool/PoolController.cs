@@ -44,6 +44,7 @@ namespace SampleTowerDefence.Scripts.Controller.Pool
 
         public void ReturnConstructionToPool(PrepareConstructionBehaviour construction)
         {
+            construction.DespawnConstruction();
             constructionPoolController.ReturnConstructionToPool(construction);
         }
 

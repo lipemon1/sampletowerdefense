@@ -1,5 +1,6 @@
 ﻿using SampleTowerDefence.Scripts.Behaviours.Construction;
 using SampleTowerDefence.Scripts.Behaviours.View;
+using SampleTowerDefence.Scripts.Controller.Core;
 using SampleTowerDefence.Scripts.Controller.View;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,20 +23,27 @@ namespace SampleTowerDefence.Scripts.View
         private void OnCancelButtonClicked()
         {
             constructorBehaviour.CancelPlacementConstruction();
-            constructorBehaviour.SetConfirming(false);
             CloseView();
         }
 
         private void OnConfirmButtonClicked()
         {
             constructorBehaviour.PlaceConstruction();
-            constructorBehaviour.SetConfirming(false);
             CloseView();
+        }
+
+        private void OpenView()
+        {
+            base.OpenView();
+            LoopController.OnWaveEnd += OnCancelButtonClicked;
         }
 
         private void CloseView()
         {
+            constructorBehaviour.SetConfirming(false);
             ViewController.Instance.OpenView(ViewController.ViewType.GameView);
+            
+            LoopController.OnWaveEnd -= OnCancelButtonClicked;
         }
     }
 }

@@ -30,6 +30,9 @@ namespace SampleTowerDefence.Scripts.Controller.Core
         [SerializeField] private ConstructorBehaviour constructorBehaviour;
         [HideInInspector] private StartPositionSetter _startPositionSetter;
         
+        public delegate void DelegateOnWaveEnd();
+        public static DelegateOnWaveEnd OnWaveEnd;
+        
         private void Awake()
         {
             if (Instance == null)
@@ -78,6 +81,8 @@ namespace SampleTowerDefence.Scripts.Controller.Core
 
         private void EndWave()
         {
+            OnWaveEnd?.Invoke();
+            
             constructorBehaviour.DisableConstruction();
             
             currentWavesDone++;

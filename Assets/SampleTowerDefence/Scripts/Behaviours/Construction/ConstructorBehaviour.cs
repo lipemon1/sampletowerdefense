@@ -91,6 +91,14 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction
             {
                 Debug.DrawLine (ray.origin, hit.point);
                 placeholderTransform.position = new Vector3(hit.point.x, placeholderHeigh, hit.point.z);
+                
+                if(!placeholderTransform.gameObject.activeInHierarchy)
+                    placeholderTransform.gameObject.SetActive(true);
+            }
+            else
+            {
+                if(placeholderTransform.gameObject.activeInHierarchy)
+                    placeholderTransform.gameObject.SetActive(false);
             }
         }
 
