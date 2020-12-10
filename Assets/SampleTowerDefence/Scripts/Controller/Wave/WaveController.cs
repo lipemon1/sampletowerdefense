@@ -16,6 +16,7 @@ namespace SampleTowerDefence.Scripts.Controller.Wave
         [SerializeField] private float delayBetweenEnemies;
         [SerializeField] private float delayBetweenSameSpawn;
         [SerializeField] private int maxEnemiesPerSpawn;
+        [SerializeField] private Transform targetPosTransform;
 
         [Header("Scriptables References")]
         [SerializeField] private EnemyScriptableObject normalEnemyData;
@@ -63,7 +64,7 @@ namespace SampleTowerDefence.Scripts.Controller.Wave
                 {
                     var newEnemy = PoolController.Instance.GetAvailableEnemy();
                     newEnemy.transform.position = wave.startPos;
-                    newEnemy.SpawnEnemy(GetEnemyData(_enemiesTypesToSpawn.PopAt(0)));
+                    newEnemy.SpawnEnemy(GetEnemyData(_enemiesTypesToSpawn.PopAt(0)), targetPosTransform.position);
 
                     yield return _delayOnSameSpawn;
                 }

@@ -1,22 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SampleTowerDefence.Scripts.Behaviours.Construction;
 using SampleTowerDefence.Scripts.Behaviours.Enemy;
+using SampleTowerDefence.Scripts.Controller.Pool;
 using UnityEngine;
 
 namespace SampleTowerDefence.Scripts.Controller.Enemy
 {
-    public class EnemyPoolController : MonoBehaviour
+    public class EnemyPoolController : ObjectPoolController<PrepareEnemyBehaviour>
     {
-        [SerializeField] private List<PrepareEnemyBehaviour> enemiesAvailable = new List<PrepareEnemyBehaviour>();
-
         public PrepareEnemyBehaviour GetAvailableEnemy()
         {
-            return enemiesAvailable?.Count > 0 ? enemiesAvailable.PopAt(0) : null;
+            return GetAvailableObject();
         }
 
         public void ReturnEnemyToPool(PrepareEnemyBehaviour enemyBehaviour)
         {
-            enemiesAvailable.Add(enemyBehaviour);
+            ReturnObjectToPool(enemyBehaviour);
         }
     }
 }

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7965243299776509206}
   m_Layer: 0
   m_Name: Base Construction
-  m_TagString: Untagged
+  m_TagString: Construction
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,7 +123,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909f1aef55ae533489a28d919d9e22ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseIsOver: 0
 --- !u!65 &7965243299776509206
 BoxCollider:
   m_ObjectHideFlags: 0

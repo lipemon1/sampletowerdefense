@@ -1,22 +1,21 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SampleTowerDefence.Scripts.Behaviours.Construction;
+using SampleTowerDefence.Scripts.Controller.Pool;
 using UnityEngine;
 
 namespace SampleTowerDefence.Scripts.Controller.Construction
 {
-    public class ConstructionPoolController : MonoBehaviour
-    {
-        [SerializeField] private List<PrepareConstructionBehaviour> constructionsAvailable = new List<PrepareConstructionBehaviour>();
-
+    public class ConstructionPoolController : ObjectPoolController<PrepareConstructionBehaviour>
+    {        
         public PrepareConstructionBehaviour GetAvailableConstruction()
         {
-            return constructionsAvailable?.Count > 0 ? constructionsAvailable.PopAt(0) : null;
+            return GetAvailableObject();
         }
         
         public void ReturnConstructionToPool(PrepareConstructionBehaviour constructionBehaviour)
         {
-            constructionBehaviour.gameObject.SetActive(false);
-            constructionsAvailable.Add(constructionBehaviour);
+            ReturnObjectToPool(constructionBehaviour);
         }
     }
 }

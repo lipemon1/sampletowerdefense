@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Target Area
+  - Enemy
+  - Construction
   layers:
   - Default
   - TransparentFX

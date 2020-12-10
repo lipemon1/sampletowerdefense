@@ -10,7 +10,7 @@ namespace SampleTowerDefence.Scripts.Behaviours.Enemy
         [HideInInspector] private EnemyMovementBehaviour _enemyMovementBehaviour;
         [SerializeField] private MeshRenderer meshRenderer;
 
-        private void PrepareDependencies(Model.Enemy enemy)
+        private void PrepareDependencies(Model.Enemy enemy, Vector3 targetPos)
         {
             if(_lifeBehaviour == null)
                 _lifeBehaviour = enemyObject.GetComponent<LifeBehaviour>();
@@ -19,13 +19,13 @@ namespace SampleTowerDefence.Scripts.Behaviours.Enemy
                 _enemyMovementBehaviour = enemyObject.GetComponent<EnemyMovementBehaviour>();
             
             _lifeBehaviour.PrepareBehaviour(enemy.life);
-            _enemyMovementBehaviour.PrepareBehaviour(enemy.speed);
+            _enemyMovementBehaviour.PrepareBehaviour(enemy.speed, targetPos);
             meshRenderer.material = enemy.material;
         }
 
-        public void SpawnEnemy(Model.Enemy enemy)
+        public void SpawnEnemy(Model.Enemy enemy, Vector3 targetPos)
         {
-            PrepareDependencies(enemy);
+            PrepareDependencies(enemy, targetPos);
             
             _lifeBehaviour.ResetLife();
             
