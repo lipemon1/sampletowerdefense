@@ -10,7 +10,6 @@ namespace SampleTowerDefence.Scripts.Controller.Wave
 {
     public class WaveController : MonoBehaviour
     {
-        [SerializeField] private Transform spawnTransform;
         [SerializeField] private List<Model.Wave.EnemyType> enemiesTypesToSpawn;
         [SerializeField] private float delayBetweenEnemies;
         [SerializeField] private bool waveSpawning;
@@ -32,7 +31,7 @@ namespace SampleTowerDefence.Scripts.Controller.Wave
             enemiesTypesToSpawn.AddRange(wave.enemies);
             
             waveSpawning = true;
-            StartCoroutine(SpawnWave());
+            StartCoroutine(SpawnWave(wave));
         }
 
         [ContextMenu("Stop Wave Spawn")]
@@ -42,7 +41,7 @@ namespace SampleTowerDefence.Scripts.Controller.Wave
             Debug.Log("Finish Wave Spawn");
         }
 
-        private IEnumerator SpawnWave()
+        private IEnumerator SpawnWave(Model.Wave wave)
         {
             while (waveSpawning && enemiesTypesToSpawn.Count > 0)
             {
@@ -50,7 +49,7 @@ namespace SampleTowerDefence.Scripts.Controller.Wave
                 
                 var enemy = PoolController.Instance.GetAvailableEnemy();
                 
-                enemy.transform.position = spawnTransform.position;
+                enemy.transform.position = wave.startPos;
                 enemy.SpawnEnemy(GetEnemyData(enemiesTypesToSpawn.PopAt(0)));
 
                 if (enemiesTypesToSpawn.Count <= 0)

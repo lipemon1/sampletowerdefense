@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SampleTowerDefence.Scripts.Behaviours.Construction;
+using SampleTowerDefence.Scripts.Behaviours.Wave;
 using SampleTowerDefence.Scripts.Controller.View;
 using SampleTowerDefence.Scripts.Controller.Wave;
 using SampleTowerDefence.Scripts.Scriptables;
@@ -25,8 +26,9 @@ namespace SampleTowerDefence.Scripts.Controller.Core
         [SerializeField] private int currentWavesDone;
         
         [Header("References")]
-        [SerializeField] private WaveController waveController;
+        [HideInInspector] private WaveController _waveController;
         [SerializeField] private ConstructorBehaviour constructorBehaviour;
+        [HideInInspector] private StartPositionSetter _startPositionSetter;
         
         private void Awake()
         {
@@ -34,10 +36,15 @@ namespace SampleTowerDefence.Scripts.Controller.Core
                 Instance = this;
             else
                 Destroy(this.gameObject);
+
+            _waveController = GetComponent<WaveController>();
+            _startPositionSetter = GetComponent<StartPositionSetter>();
         }
 
         public void StartGame()
         {
+            _startPositionSetter.SetStartPositionOnWaves(waves);
+            
             currentWaveIndex = -1;
             
             expectedWaves = waves.Count;
@@ -53,7 +60,7 @@ namespace SampleTowerDefence.Scripts.Controller.Core
             expectedWaveEnemies = currentWave.enemies.Count;
             currentWaveEnemiesDone = 0;
             
-            waveController.StartWave(currentWave);
+            _waveController.StartWave(currentWave);
         }
 
         public void NewEnemyDone()

@@ -13,5 +13,6 @@ namespace SampleTowerDefence.Scripts.Model
         }
         
         public List<EnemyType> enemies;
+        public Vector3 startPos;
     }
 }

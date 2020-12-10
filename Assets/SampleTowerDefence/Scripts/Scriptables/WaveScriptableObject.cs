@@ -13,5 +13,10 @@ namespace SampleTowerDefence.Scripts.Scriptables
         {
             return waveData;
         }
+
+        public void SetStartPosition(Vector3 pos)
+        {
+            waveData.startPos = pos;
+        }
     }
 }
