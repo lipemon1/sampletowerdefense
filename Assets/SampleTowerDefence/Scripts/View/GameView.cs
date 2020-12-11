@@ -8,24 +8,38 @@ namespace SampleTowerDefence.Scripts.View
     public class GameView : ViewBehaviour
     {
         [SerializeField] private Button barrierButton;
-        [SerializeField] private Button towerButton;
+        [SerializeField] private Button singleTargetTowerButton;
+        [SerializeField] private Button areaTargetTowerButton;
+        [SerializeField] private Button slowTargetTowerButton;
 
         [SerializeField] private ConstructorBehaviour constructorBehaviour;
         
         private void Awake()
         {
             barrierButton.onClick.AddListener(OnBarrierClicked);
-            towerButton.onClick.AddListener(OnTowerClicked);
+            singleTargetTowerButton.onClick.AddListener(OnSingleTargetTowerClicked);
+            areaTargetTowerButton.onClick.AddListener(OnAreaTargetTowerClicked);
+            slowTargetTowerButton.onClick.AddListener(OnSlowTargetTowerClicked);
         }
 
-        private void OnTowerClicked()
+        private void OnSingleTargetTowerClicked()
         {
-            constructorBehaviour.EnableConstruction(ConstructorBehaviour.ConstructionMode.Tower);
+            constructorBehaviour.EnableConstruction(Model.Construction.ConstructionType.SingleTargetTower);
+        }
+        
+        private void OnAreaTargetTowerClicked()
+        {
+            constructorBehaviour.EnableConstruction(Model.Construction.ConstructionType.AreaDamageTower);
+        }
+        
+        private void OnSlowTargetTowerClicked()
+        {
+            constructorBehaviour.EnableConstruction(Model.Construction.ConstructionType.SlowTargetTower);
         }
 
         private void OnBarrierClicked()
         {
-            constructorBehaviour.EnableConstruction(ConstructorBehaviour.ConstructionMode.Barrier);
+            constructorBehaviour.EnableConstruction(Model.Construction.ConstructionType.Barrier);
         }
     }
 }

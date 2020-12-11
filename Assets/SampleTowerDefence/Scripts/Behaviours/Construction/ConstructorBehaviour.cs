@@ -10,12 +10,6 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction
 {
     public class ConstructorBehaviour : MonoBehaviour
     {
-        public enum ConstructionMode
-        {
-            Barrier,
-            Tower
-        }
-        
         [SerializeField] private float cameraDistance = 50f;
         [SerializeField] private LayerMask layerForBarrier;
         [SerializeField] private LayerMask layerForTower;
@@ -24,7 +18,9 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction
         [Header("Objects References")]
         [SerializeField] private Transform placeholderTransform;
         [SerializeField] private GameObject barrierObject;
-        [SerializeField] private GameObject towerObject;
+        [SerializeField] private GameObject singleTargetObject;
+        [SerializeField] private GameObject areaTargetObject;
+        [SerializeField] private GameObject slowTargetObject;
         
         [Header("Status Control")]
         [SerializeField] private bool canPlace;
@@ -32,24 +28,20 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction
         [SerializeField] private bool confirmingView;
         [SerializeField] private Model.Construction.ConstructionType structureToCreate;
 
-        [Header("Other References")]
+        [Header("Constructions References")]
         [SerializeField] private ConstructionScriptableObject barrierData;
-        [SerializeField] private ConstructionScriptableObject towerData;
+        [SerializeField] private ConstructionScriptableObject singleTargetData;
+        [SerializeField] private ConstructionScriptableObject areaTargetData;
+        [SerializeField] private ConstructionScriptableObject slowTargetData;
 
         // Update is called once per frame
         private void Update()
         {
             if (enableConstruction && !confirmingView)
                 ChoosingConstructionPlace();
-
-            if (enableConstruction && canPlace && Input.GetMouseButtonUp(0) && !confirmingView)
-            {
-                SetConfirming(true);
-                ViewController.Instance.OpenView(ViewController.ViewType.ConfirmDialogView, placeholderTransform.position);
-            }
         }
 
-        public void EnableConstruction(ConstructionMode mode)
+        public void EnableConstruction(Model.Construction.ConstructionType mode)
         {
             ViewController.Instance.CloseView(ViewController.ViewType.GameView);
             
@@ -57,13 +49,21 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction
 
             switch (mode)
             {
-                case ConstructionMode.Barrier:
+                case Model.Construction.ConstructionType.Barrier:
                     barrierObject.SetActive(true);
                     structureToCreate = Model.Construction.ConstructionType.Barrier;
                     break;
-                case ConstructionMode.Tower:
-                    towerObject.SetActive(true);
-                    structureToCreate = Model.Construction.ConstructionType.Tower;
+                case Model.Construction.ConstructionType.SingleTargetTower:
+                    singleTargetObject.SetActive(true);
+                    structureToCreate = Model.Construction.ConstructionType.SingleTargetTower;
+                    break;
+                case Model.Construction.ConstructionType.AreaDamageTower:
+                    areaTargetObject.SetActive(true);
+                    structureToCreate = Model.Construction.ConstructionType.AreaDamageTower;
+                    break;
+                case Model.Construction.ConstructionType.SlowTargetTower:
+                    slowTargetObject.SetActive(true);
+                    structureToCreate = Model.Construction.ConstructionType.SlowTargetTower;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
@@ -79,7 +79,9 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction
             enableConstruction = false;
             
             barrierObject.SetActive(false);
-            towerObject.SetActive(false);
+            singleTargetObject.SetActive(false);
+            areaTargetObject.SetActive(false);
+            slowTargetObject.SetActive(false);
         }
 
         private void ChoosingConstructionPlace()
@@ -94,6 +96,12 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction
                 
                 if(!placeholderTransform.gameObject.activeInHierarchy)
                     placeholderTransform.gameObject.SetActive(true);
+                
+                if (enableConstruction && canPlace && Input.GetMouseButtonUp(0) && !confirmingView)
+                {
+                    SetConfirming(true);
+                    ViewController.Instance.OpenView(ViewController.ViewType.ConfirmDialogView, placeholderTransform.position);
+                }
             }
             else
             {
@@ -108,7 +116,9 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction
             {
                 case Model.Construction.ConstructionType.Barrier:
                     return layerForBarrier;
-                case Model.Construction.ConstructionType.Tower:
+                case Model.Construction.ConstructionType.SingleTargetTower:
+                case Model.Construction.ConstructionType.AreaDamageTower:
+                case Model.Construction.ConstructionType.SlowTargetTower:
                     return layerForTower;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -146,8 +156,12 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction
             {
                 case Model.Construction.ConstructionType.Barrier:
                     return new Model.Construction(barrierData.GetConstructionData());
-                case Model.Construction.ConstructionType.Tower:
-                    return new Model.Construction(towerData.GetConstructionData());
+                case Model.Construction.ConstructionType.SingleTargetTower:
+                    return new Model.Construction(singleTargetData.GetConstructionData());
+                case Model.Construction.ConstructionType.AreaDamageTower:
+                    return new Model.Construction(areaTargetData.GetConstructionData());
+                case Model.Construction.ConstructionType.SlowTargetTower:
+                    return new Model.Construction(slowTargetData.GetConstructionData());
                 default:
                     throw new ArgumentOutOfRangeException();
             }
