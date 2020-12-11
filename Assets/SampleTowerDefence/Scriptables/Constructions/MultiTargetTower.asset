@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4f9566c4a83e8e4b9fc97efb1e587f8, type: 3}
-  m_Name: SingleTargetTower
+  m_Name: MultiTargetTower
   m_EditorClassIdentifier: 
   constructionData:
     material: {fileID: 2100000, guid: 68f416d0fdeef9f428392f60451d1502, type: 2}

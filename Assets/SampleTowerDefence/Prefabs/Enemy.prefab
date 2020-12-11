@@ -238,9 +238,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -394,7 +394,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5008877030418271130
 Transform:
   m_ObjectHideFlags: 0
@@ -504,6 +504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 5008877030418271129}
+  _canMove: 0
 --- !u!114 &5008877030418271107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -518,6 +519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   life: 100
   initialLife: 100
+  healthBar: {fileID: 1150153128075965206}
 --- !u!114 &5008877030418271108
 MonoBehaviour:
   m_ObjectHideFlags: 0
