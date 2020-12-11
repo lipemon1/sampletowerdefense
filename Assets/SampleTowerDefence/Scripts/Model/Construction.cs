@@ -15,7 +15,7 @@ namespace SampleTowerDefence.Scripts.Model
         
         public Material material;
         public ConstructionType structure;
-        public float attackValue;
+        public int attackValue;
         
         public Construction(Construction construction)
         {

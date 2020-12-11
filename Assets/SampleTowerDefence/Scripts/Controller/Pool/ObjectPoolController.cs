@@ -16,7 +16,8 @@ namespace SampleTowerDefence.Scripts.Controller.Pool
 
         protected void ReturnObjectToPool(T objectToReturn)
         {
-            objectsAvailable.Add(objectToReturn);
+            if(!objectsAvailable.Contains(objectToReturn))
+                objectsAvailable.Add(objectToReturn);
         }
     }
 }

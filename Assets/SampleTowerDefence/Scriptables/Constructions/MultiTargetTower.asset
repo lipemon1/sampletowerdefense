@@ -15,4 +15,4 @@ MonoBehaviour:
   constructionData:
     material: {fileID: 2100000, guid: 68f416d0fdeef9f428392f60451d1502, type: 2}
     structure: 1
-    attackValue: 0
+    attackValue: 5

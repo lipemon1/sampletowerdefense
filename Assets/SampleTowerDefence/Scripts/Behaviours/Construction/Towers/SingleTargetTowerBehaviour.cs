@@ -11,14 +11,14 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction.Towers
         [SerializeField] private GameObject enemyObject;
         [HideInInspector] private LifeBehaviour _enemyLife;
         [HideInInspector] private PrepareEnemyBehaviour _enemyBehaviour;
-        [SerializeField] private bool _attacking;
+        [HideInInspector] private bool _attacking;
         [HideInInspector] private int _damage;
         
-        public void StartAttacking(GameObject newTarget, float delayToAttack)
+        public void StartAttacking(GameObject newTarget, float delayToAttack, int attackValue)
         {
             _attacking = true;
 
-            _damage = 25;
+            _damage = attackValue;
             
             enemyObject = newTarget;
             _enemyLife = enemyObject.GetComponent<LifeBehaviour>();

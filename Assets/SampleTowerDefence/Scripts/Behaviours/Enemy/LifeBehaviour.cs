@@ -10,6 +10,7 @@ namespace SampleTowerDefence.Scripts.Behaviours.Enemy
         [SerializeField] private int life;
         [SerializeField] private int initialLife;
         [SerializeField] private HealthBar healthBar;
+        [SerializeField] private bool isDead;
 
         public void PrepareBehaviour(int lifeAmount)
         {
@@ -20,10 +21,13 @@ namespace SampleTowerDefence.Scripts.Behaviours.Enemy
         {
             life = initialLife;
             healthBar.HealthChanged(life);
+            isDead = false;
         }
 
         public void ApplyDamage(int damage, System.Action onEnemyKilled)
         {
+            if (isDead) return;
+            
             life -= damage;
 
             if (life <= 0)
@@ -34,7 +38,10 @@ namespace SampleTowerDefence.Scripts.Behaviours.Enemy
 
         private void KillEnemy(System.Action onEnemyKilled)
         {
+            if(!isDead)
             onEnemyKilled?.Invoke();
+            
+            isDead = true;
         }
     }
 }

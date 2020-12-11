@@ -15,9 +15,9 @@ namespace SampleTowerDefence.Scripts.Model
             this.towerTargetBehaviour = towerTargetBehaviour;
         }
 
-        public void StartAttacking(float delayToAttack)
+        public void StartAttacking(float delayToAttack, int attackValue)
         {
-            towerTargetBehaviour.StartAttacking(enemyObject, delayToAttack);
+            towerTargetBehaviour.StartAttacking(enemyObject, delayToAttack, attackValue);
         }
 
         public void StopAttacking()

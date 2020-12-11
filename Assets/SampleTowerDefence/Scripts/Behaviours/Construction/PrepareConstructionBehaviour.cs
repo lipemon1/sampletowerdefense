@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SampleTowerDefence.Scripts.Behaviours.Construction.Towers;
+using UnityEngine;
 
 namespace SampleTowerDefence.Scripts.Behaviours.Construction
 {
@@ -6,10 +7,12 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction
     {
         [SerializeField] private GameObject barrierObject;
         [SerializeField] private MeshRenderer meshRenderer;
+        [SerializeField] private MultiTargetTowerBehaviour multiTargetTowerBehaviour;
 
         private void PrepareDependencies(Model.Construction construction)
         {
             meshRenderer.material = construction.material;
+            multiTargetTowerBehaviour.SetConstruction(construction);
         }
 
         public void SpawnConstruction(Model.Construction construction)
