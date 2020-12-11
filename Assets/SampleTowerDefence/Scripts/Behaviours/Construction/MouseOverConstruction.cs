@@ -4,15 +4,17 @@ using UnityEngine;
 namespace SampleTowerDefence.Scripts.Behaviours.Construction
 {
     public class MouseOverConstruction : MonoBehaviour
-    {   
-        private void OnMouseOver()
+    {
+        [SerializeField] private MouseOverConstruction mouseOverConstruction;
+        
+        private void OnMouseEnter()
         {
-            OverConstructionDetection.Instance.NewOverConstruction(this);
+            OverConstructionDetection.Instance.NewOverConstruction(mouseOverConstruction);
         }
 
         private void OnMouseExit()
         {
-            OverConstructionDetection.Instance.NewOverConstruction(null);
+            OverConstructionDetection.Instance.NewOverConstruction(mouseOverConstruction);
         }
     }
 }

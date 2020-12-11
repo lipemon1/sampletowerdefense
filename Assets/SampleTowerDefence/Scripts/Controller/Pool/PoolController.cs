@@ -33,6 +33,20 @@ namespace SampleTowerDefence.Scripts.Controller.Pool
             enemyPoolController.ReturnEnemyToPool(enemy);
         }
 
+        public void ReturnAllEnemies()
+        {
+            var allEnemies = FindObjectsOfType<PrepareEnemyBehaviour>();
+
+            foreach (var prepareEnemyBehaviour in allEnemies)
+            {
+//                var movement = prepareEnemyBehaviour.GetComponent<EnemyMovementBehaviour>();
+//                movement.StopMovement();
+                
+                prepareEnemyBehaviour.DespawnEnemy();
+                ReturnEnemyToPool(prepareEnemyBehaviour);
+            }
+        }
+
         #endregion
 
         #region Construction
