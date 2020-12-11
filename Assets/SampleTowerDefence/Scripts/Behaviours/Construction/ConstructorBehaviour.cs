@@ -140,6 +140,11 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction
             confirmingView = value;
         }
 
+        public bool IsConfirming()
+        {
+            return confirmingView;
+        }
+
         public void PlaceConstruction()
         {
             DisableConstruction();

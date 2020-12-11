@@ -11,7 +11,7 @@ namespace SampleTowerDefence.Scripts.Behaviours.View
         
         [SerializeField] private MouseOverConstruction overConstruction;
         [SerializeField] private PrepareConstructionBehaviour constructionToDelete;
-        [SerializeField] private bool canDelete;
+        [SerializeField] private ConstructorBehaviour constructorBehaviour;
 
         private void Awake()
         {
@@ -25,7 +25,7 @@ namespace SampleTowerDefence.Scripts.Behaviours.View
         {
             if (overConstruction == null) return;
 
-            if (Input.GetMouseButtonUp(0) && canDelete)
+            if (Input.GetMouseButtonDown(0) && !constructorBehaviour.IsConfirming())
             {
                 ViewController.Instance.OpenView(ViewController.ViewType.DeleteDialogView, overConstruction.gameObject.transform.position);
                 constructionToDelete = overConstruction.gameObject.GetComponent<PrepareConstructionBehaviour>();
@@ -41,11 +41,6 @@ namespace SampleTowerDefence.Scripts.Behaviours.View
         public void DeleteConstruction()
         {
             PoolController.Instance.ReturnConstructionToPool(constructionToDelete);
-        }
-
-        public void SetCanDelete(bool value)
-        {
-            canDelete = value;
         }
     }
 }
