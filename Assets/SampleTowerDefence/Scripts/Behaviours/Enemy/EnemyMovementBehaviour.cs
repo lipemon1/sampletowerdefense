@@ -6,26 +6,30 @@ namespace SampleTowerDefence.Scripts.Behaviours.Enemy
 {
     public class EnemyMovementBehaviour : MonoBehaviour
     {
-        [HideInInspector] private Vector3 targetPos;
+        [HideInInspector] private Vector3 _targetPos;
         [SerializeField] private NavMeshAgent agent;
-        [HideInInspector] private bool _canMove;
+        [SerializeField] private bool _canMove;
 
         public void PrepareBehaviour(float enemySpeed, Vector3 newTargetPos)
         {
             agent.speed = enemySpeed;
-            this.targetPos = newTargetPos;
+            this._targetPos = newTargetPos;
         }
 
         private void Update()
         {
-            if(_canMove)
-                agent.SetDestination(targetPos);
+            if(Input.GetKeyDown(KeyCode.R))
+                StartMovement();
+            
+            if(Input.GetKeyDown(KeyCode.T))
+                StopMovement();
         }
 
         public void StartMovement()
         {
             _canMove = true;
             agent.isStopped = !_canMove;
+            agent.SetDestination(_targetPos);
         }
 
         public void StopMovement()
