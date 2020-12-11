@@ -34,7 +34,7 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction.Towers
             var newTargetItem =
                 new MultiTargetTowerItem(other.transform.gameObject, availableSingleTarget);
             
-            newTargetItem.StartAttacking(delayToAttack, construction.attackValue);
+            newTargetItem.StartAttacking(delayToAttack, construction);
             
             currentTargets.Add(newTargetItem);
         }
@@ -62,9 +62,8 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction.Towers
                     if (currentTargets.Count < 3) return targetsBehaviours.FirstOrDefault(tb => !tb.IsAttacking());
                     return null;
                 case Model.Construction.ConstructionType.AreaDamageTower:
-                    return targetsBehaviours.FirstOrDefault(tb => !tb.IsAttacking());
                 case Model.Construction.ConstructionType.SlowTargetTower:
-                    return null;
+                    return targetsBehaviours.FirstOrDefault(tb => !tb.IsAttacking());
                 default:
                     throw new ArgumentOutOfRangeException();
             }

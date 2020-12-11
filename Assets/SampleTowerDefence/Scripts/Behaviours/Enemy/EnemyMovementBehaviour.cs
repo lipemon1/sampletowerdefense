@@ -8,12 +8,14 @@ namespace SampleTowerDefence.Scripts.Behaviours.Enemy
     {
         [HideInInspector] private Vector3 _targetPos;
         [SerializeField] private NavMeshAgent agent;
-        [SerializeField] private bool _canMove;
+        [HideInInspector] private bool _canMove;
+        [SerializeField] private bool _slowed;
 
         public void PrepareBehaviour(float enemySpeed, Vector3 newTargetPos)
         {
             agent.speed = enemySpeed;
-            this._targetPos = newTargetPos;
+            _targetPos = newTargetPos;
+            _slowed = false;
         }
 
         private void Update()
@@ -36,6 +38,22 @@ namespace SampleTowerDefence.Scripts.Behaviours.Enemy
         {
             _canMove = false;
             agent.isStopped = !_canMove;
+        }
+
+        public void Slow(int damage)
+        {
+            if (_slowed) return;
+            
+            _slowed = true;
+            agent.speed -= damage;
+        }
+
+        public void SpeedUp(int damage)
+        {
+            if (!_slowed) return;
+            
+            _slowed = false;
+            agent.speed += damage;
         }
     }
 }

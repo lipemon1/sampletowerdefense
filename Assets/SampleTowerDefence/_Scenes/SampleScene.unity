@@ -1156,7 +1156,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 220, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &170698029
@@ -4665,7 +4665,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayBetweenEnemies: 3
   delayBetweenSameSpawn: 1.25
-  maxEnemiesPerSpawn: 3
+  maxEnemiesPerSpawn: 4
   targetPosTransform: {fileID: 444274546}
   normalEnemyData: {fileID: 11400000, guid: 33259cdd70516da4aa434348b2cec48b, type: 2}
   strongEnemyData: {fileID: 11400000, guid: f4375db7abe68f34f9ef0bb2abec271c, type: 2}
@@ -4891,7 +4891,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: -1.8553119e-28, z: 1.16e-43, w: -2.608023e-28}
+  m_BoundingSphereOverride: {x: 0, y: -2.280045e-28, z: 1.16e-43, w: 1.61e-43}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -7312,11 +7312,11 @@ Transform:
   - {fileID: 89649373}
   - {fileID: 1746802248}
   - {fileID: 384282265}
-  - {fileID: 666926903}
   - {fileID: 1140159921}
+  - {fileID: 666926903}
   - {fileID: 1306852751}
-  - {fileID: 1521331542}
   - {fileID: 1606023568}
+  - {fileID: 1521331542}
   - {fileID: 1341096029}
   - {fileID: 425993655}
   m_Father: {fileID: 269387307}
@@ -7805,15 +7805,15 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 541414637}
+  - {fileID: 1350731248}
   - {fileID: 60769407}
+  - {fileID: 1827635906}
   - {fileID: 452123201}
   - {fileID: 337525989}
   - {fileID: 1327887219}
-  - {fileID: 57508743}
-  - {fileID: 1350731248}
-  - {fileID: 1827635906}
-  - {fileID: 541414637}
   - {fileID: 1459471631}
+  - {fileID: 57508743}
   - {fileID: 1729842883}
   - {fileID: 157175409}
   - {fileID: 1604133496}

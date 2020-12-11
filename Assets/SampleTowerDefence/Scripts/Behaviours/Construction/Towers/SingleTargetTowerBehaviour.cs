@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using SampleTowerDefence.Scripts.Behaviours.Enemy;
 using SampleTowerDefence.Scripts.Controller.Core;
 using SampleTowerDefence.Scripts.Controller.Pool;
@@ -11,28 +12,41 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction.Towers
         [SerializeField] private GameObject enemyObject;
         [HideInInspector] private LifeBehaviour _enemyLife;
         [HideInInspector] private PrepareEnemyBehaviour _enemyBehaviour;
+        [HideInInspector] private EnemyMovementBehaviour _enemyMovementBehaviour;
         [HideInInspector] private bool _attacking;
-        [HideInInspector] private int _damage;
+        [HideInInspector] private Model.Construction _construction;
         
-        public void StartAttacking(GameObject newTarget, float delayToAttack, int attackValue)
+        public void StartAttacking(GameObject newTarget, float delayToAttack, Model.Construction construction)
         {
             _attacking = true;
 
-            _damage = attackValue;
+            _construction = construction;
             
             enemyObject = newTarget;
             _enemyLife = enemyObject.GetComponent<LifeBehaviour>();
-            
-            InvokeRepeating(nameof(AttackEnemy), 0f, delayToAttack);
+            _enemyMovementBehaviour = enemyObject.GetComponent<EnemyMovementBehaviour>();
+            _enemyBehaviour = enemyObject.GetComponent<PrepareEnemyBehaviour>();
+
+            switch (construction.structure)
+            {
+                case Model.Construction.ConstructionType.Barrier:
+                    break;
+                case Model.Construction.ConstructionType.MultiTargetTower:
+                case Model.Construction.ConstructionType.AreaDamageTower:
+                    InvokeRepeating(nameof(AttackEnemy), 0f, delayToAttack);
+                    break;
+                case Model.Construction.ConstructionType.SlowTargetTower:
+                    SlowEnemy();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private void AttackEnemy()
         {
-            _enemyLife.ApplyDamage(_damage, () =>
+            _enemyLife.ApplyDamage(_construction.attackValue, () =>
             {
-                if (_enemyBehaviour == null)
-                    _enemyBehaviour = _enemyLife.GetComponent<PrepareEnemyBehaviour>();
-                
                 _enemyBehaviour.DespawnEnemy();
                 
                 LoopController.Instance.NewEnemyDone();
@@ -42,8 +56,16 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction.Towers
             });
         }
 
+        private void SlowEnemy()
+        {
+            _enemyMovementBehaviour.Slow(_construction.attackValue);
+        }
+
         public void StopAttacking()
         {
+            if(_construction.structure == Model.Construction.ConstructionType.SlowTargetTower)
+                _enemyMovementBehaviour.SpeedUp(_construction.attackValue);
+            
             enemyObject = null;
             _enemyLife = null;
             _enemyBehaviour = null;
