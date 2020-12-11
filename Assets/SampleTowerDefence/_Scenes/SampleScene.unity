@@ -5625,7 +5625,7 @@ GameObject:
   - component: {fileID: 1081691678}
   - component: {fileID: 1081691677}
   m_Layer: 5
-  m_Name: Single Target Tower Button
+  m_Name: Multi Target Tower Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6559,7 +6559,7 @@ MonoBehaviour:
   viewTypeType: 2
   viewObject: {fileID: 1256413305}
   barrierButton: {fileID: 170698029}
-  singleTargetTowerButton: {fileID: 1081691677}
+  multiTargetTowerButton: {fileID: 1081691677}
   areaTargetTowerButton: {fileID: 1810263526}
   slowTargetTowerButton: {fileID: 89180889}
   constructorBehaviour: {fileID: 1863462822}
@@ -9690,7 +9690,7 @@ MonoBehaviour:
   placeholderHeigh: 1
   placeholderTransform: {fileID: 1627963662}
   barrierObject: {fileID: 602181328}
-  singleTargetObject: {fileID: 4543316331848706590}
+  multiTargetObject: {fileID: 0}
   areaTargetObject: {fileID: 1473754556}
   slowTargetObject: {fileID: 423428588}
   canPlace: 0
@@ -9698,7 +9698,7 @@ MonoBehaviour:
   confirmingView: 0
   structureToCreate: 0
   barrierData: {fileID: 11400000, guid: d5bed14576a56c543893821f644f2503, type: 2}
-  singleTargetData: {fileID: 11400000, guid: 69fb88db58d084649af391247fdf9a14, type: 2}
+  multiTargetData: {fileID: 0}
   areaTargetData: {fileID: 11400000, guid: e343eadf367a7764cbf6a074a922e8a9, type: 2}
   slowTargetData: {fileID: 11400000, guid: a1d859da97d00a94d87afbe0c7427e70, type: 2}
 --- !u!1 &1893376985

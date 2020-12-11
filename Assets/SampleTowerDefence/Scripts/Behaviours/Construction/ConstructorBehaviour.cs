@@ -18,7 +18,7 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction
         [Header("Objects References")]
         [SerializeField] private Transform placeholderTransform;
         [SerializeField] private GameObject barrierObject;
-        [SerializeField] private GameObject singleTargetObject;
+        [SerializeField] private GameObject multiTargetObject;
         [SerializeField] private GameObject areaTargetObject;
         [SerializeField] private GameObject slowTargetObject;
         
@@ -30,7 +30,7 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction
 
         [Header("Constructions References")]
         [SerializeField] private ConstructionScriptableObject barrierData;
-        [SerializeField] private ConstructionScriptableObject singleTargetData;
+        [SerializeField] private ConstructionScriptableObject multiTargetData;
         [SerializeField] private ConstructionScriptableObject areaTargetData;
         [SerializeField] private ConstructionScriptableObject slowTargetData;
 
@@ -53,9 +53,9 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction
                     barrierObject.SetActive(true);
                     structureToCreate = Model.Construction.ConstructionType.Barrier;
                     break;
-                case Model.Construction.ConstructionType.SingleTargetTower:
-                    singleTargetObject.SetActive(true);
-                    structureToCreate = Model.Construction.ConstructionType.SingleTargetTower;
+                case Model.Construction.ConstructionType.MultiTargetTower:
+                    multiTargetObject.SetActive(true);
+                    structureToCreate = Model.Construction.ConstructionType.MultiTargetTower;
                     break;
                 case Model.Construction.ConstructionType.AreaDamageTower:
                     areaTargetObject.SetActive(true);
@@ -79,7 +79,7 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction
             enableConstruction = false;
             
             barrierObject.SetActive(false);
-            singleTargetObject.SetActive(false);
+            multiTargetObject.SetActive(false);
             areaTargetObject.SetActive(false);
             slowTargetObject.SetActive(false);
         }
@@ -116,7 +116,7 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction
             {
                 case Model.Construction.ConstructionType.Barrier:
                     return layerForBarrier;
-                case Model.Construction.ConstructionType.SingleTargetTower:
+                case Model.Construction.ConstructionType.MultiTargetTower:
                 case Model.Construction.ConstructionType.AreaDamageTower:
                 case Model.Construction.ConstructionType.SlowTargetTower:
                     return layerForTower;
@@ -156,8 +156,8 @@ namespace SampleTowerDefence.Scripts.Behaviours.Construction
             {
                 case Model.Construction.ConstructionType.Barrier:
                     return new Model.Construction(barrierData.GetConstructionData());
-                case Model.Construction.ConstructionType.SingleTargetTower:
-                    return new Model.Construction(singleTargetData.GetConstructionData());
+                case Model.Construction.ConstructionType.MultiTargetTower:
+                    return new Model.Construction(multiTargetData.GetConstructionData());
                 case Model.Construction.ConstructionType.AreaDamageTower:
                     return new Model.Construction(areaTargetData.GetConstructionData());
                 case Model.Construction.ConstructionType.SlowTargetTower:

@@ -8,7 +8,7 @@ namespace SampleTowerDefence.Scripts.View
     public class GameView : ViewBehaviour
     {
         [SerializeField] private Button barrierButton;
-        [SerializeField] private Button singleTargetTowerButton;
+        [SerializeField] private Button multiTargetTowerButton;
         [SerializeField] private Button areaTargetTowerButton;
         [SerializeField] private Button slowTargetTowerButton;
 
@@ -17,14 +17,14 @@ namespace SampleTowerDefence.Scripts.View
         private void Awake()
         {
             barrierButton.onClick.AddListener(OnBarrierClicked);
-            singleTargetTowerButton.onClick.AddListener(OnSingleTargetTowerClicked);
+            multiTargetTowerButton.onClick.AddListener(OnMultiTargetTowerClicked);
             areaTargetTowerButton.onClick.AddListener(OnAreaTargetTowerClicked);
             slowTargetTowerButton.onClick.AddListener(OnSlowTargetTowerClicked);
         }
 
-        private void OnSingleTargetTowerClicked()
+        private void OnMultiTargetTowerClicked()
         {
-            constructorBehaviour.EnableConstruction(Model.Construction.ConstructionType.SingleTargetTower);
+            constructorBehaviour.EnableConstruction(Model.Construction.ConstructionType.MultiTargetTower);
         }
         
         private void OnAreaTargetTowerClicked()

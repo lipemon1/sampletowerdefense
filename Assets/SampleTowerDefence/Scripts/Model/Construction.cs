@@ -8,7 +8,7 @@ namespace SampleTowerDefence.Scripts.Model
         public enum ConstructionType
         {
             Barrier,
-            SingleTargetTower,
+            MultiTargetTower,
             AreaDamageTower,
             SlowTargetTower
         }
